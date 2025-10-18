@@ -47,7 +47,7 @@ func main() {
 	err := wails.Run(&options.App{
 		Title:  "nonepad",
 		Menu:   appMenu,
-		Width:  1024,
+		Width:  768,
 		Height: 768,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
