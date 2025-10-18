@@ -52,7 +52,14 @@ func (a *App) GetPages() ([]Page, error) {
 		return nil, err
 	}
 
-	pagesFile := filepath.Join(appDir, "pages.json")
+	// Clean and validate the path
+	pagesFile := filepath.Clean(filepath.Join(appDir, "pages.json"))
+	
+	// Ensure the path is within the app directory
+	if !strings.HasPrefix(pagesFile, filepath.Clean(appDir)) {
+		return []Page{}, nil
+	}
+
 	if _, err := os.Stat(pagesFile); os.IsNotExist(err) {
 		return []Page{}, nil
 	}
