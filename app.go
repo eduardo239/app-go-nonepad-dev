@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -38,7 +39,7 @@ func (a *App) getAppDir() (string, error) {
 		return "", err
 	}
 	appDir := filepath.Join(userConfigDir, "nonepad")
-	if err := os.MkdirAll(appDir, 0755); err != nil {
+	if err := os.MkdirAll(appDir, 0750); err != nil {
 		return "", err
 	}
 	return appDir, nil
@@ -80,7 +81,7 @@ func (a *App) SavePages(pages []Page) error {
 		return err
 	}
 
-	return os.WriteFile(filepath.Join(appDir, "pages.json"), data, 0644)
+	return os.WriteFile(filepath.Join(appDir, "pages.json"), data, 0600)
 }
 
 // CreatePage creates a new page
@@ -160,11 +161,11 @@ func (a *App) SaveContent(content string) error {
 	}
 
 	appDir := filepath.Join(userConfigDir, "nonepad")
-	if err := os.MkdirAll(appDir, 0755); err != nil {
+	if err := os.MkdirAll(appDir, 0750); err != nil {
 		return err
 	}
 
-	return os.WriteFile(filepath.Join(appDir, "content.txt"), []byte(content), 0644)
+	return os.WriteFile(filepath.Join(appDir, "content.txt"), []byte(content), 0600)
 }
 
 // LoadContent loads the previously saved content
@@ -174,7 +175,15 @@ func (a *App) LoadContent() string {
 		return ""
 	}
 
-	content, err := os.ReadFile(filepath.Join(userConfigDir, "nonepad", "content.txt"))
+	// Create the full path and clean it
+	configPath := filepath.Clean(filepath.Join(userConfigDir, "nonepad", "content.txt"))
+	
+	// Ensure the path is within the user config directory
+	if !strings.HasPrefix(configPath, filepath.Clean(userConfigDir)) {
+		return ""
+	}
+
+	content, err := os.ReadFile(configPath)
 	if err != nil {
 		return ""
 	}
