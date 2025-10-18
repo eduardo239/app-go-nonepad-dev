@@ -52,14 +52,16 @@ jobs:
       - name: Build
         run: wails build
 
-    # Upload artifacts
-    - name: Upload Windows build
-      uses: actions/upload-artifact@v4
-      with:
-        name: windows-build
-        path: build/bin/
-        retention-days: 5
-        compression-level: 6 # Optional: Better compression for binaries  lint:
+      # Upload artifacts
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: build/bin/
+          retention-days: 5
+          compression-level: 6 # Optional: Better compression for binaries
+
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -84,11 +86,13 @@ jobs:
           cd frontend
           npm install
 
-    # Run ESLint
-    - name: Run ESLint
-      run: |
-        cd frontend
-        npm run lint      # Run Go linter
+      # Run ESLint
+      - name: Run ESLint
+        run: |
+          cd frontend
+          npm run lint
+
+      # Run Go linter
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
