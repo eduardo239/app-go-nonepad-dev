@@ -20,6 +20,7 @@ type Page struct {
 // App struct
 type App struct {
 	ctx context.Context
+	appDirOverride string // Used for testing
 }
 
 // NewApp creates a new App application struct
@@ -28,6 +29,10 @@ func NewApp() *App {
 }
 
 func (a *App) getAppDir() (string, error) {
+	if a.appDirOverride != "" {
+		return a.appDirOverride, nil
+	}
+	
 	userConfigDir, err := os.UserConfigDir()
 	if err != nil {
 		return "", err

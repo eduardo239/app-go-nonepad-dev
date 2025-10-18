@@ -9,7 +9,7 @@ import {
 import { EventsOn } from '../wailsjs/runtime';
 import { Sidebar } from './components/Sidebar';
 
-function App() {
+export default function App() {
   const [pages, setPages] = useState([]);
   const [activePage, setActivePage] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -195,5 +195,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
