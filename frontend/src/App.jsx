@@ -7,7 +7,6 @@ import {
   DeletePage,
 } from '../wailsjs/go/main/App';
 import { EventsOn } from '../wailsjs/runtime';
-import { Sidebar } from './components/Sidebar';
 
 export default function App() {
   const [pages, setPages] = useState([]);
@@ -164,10 +163,6 @@ export default function App() {
     return () => cleanup.forEach((unsubscribe) => unsubscribe());
   }, []);
 
-  function greet() {
-    Greet(name).then(updateResultText);
-  }
-
   return (
     <div id="App">
       <Sidebar
@@ -180,6 +175,7 @@ export default function App() {
         isCollapsed={isCollapsed}
         onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
       />
+      {/* <List1 /> */}
       <textarea
         name="input"
         id="input"

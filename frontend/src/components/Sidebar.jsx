@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Sidebar.css';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 export function Sidebar({
   pages,
@@ -50,9 +49,10 @@ export function Sidebar({
           )}
         </button>
         {!isCollapsed && (
-          <button className="new-page-btn" onClick={handleCreatePage}>
-            New Page
-          </button>
+          // <button className="new-page-btn" onClick={handleCreatePage}>
+          //   New Page
+          // </button>
+          <Button1 onClick={handleCreatePage} />
         )}
       </div>
       <div className="pages-list">
