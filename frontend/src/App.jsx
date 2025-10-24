@@ -161,6 +161,7 @@ export default function App() {
 
     // Cleanup function to unsubscribe from all events
     return () => cleanup.forEach((unsubscribe) => unsubscribe());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
